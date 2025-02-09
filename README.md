@@ -61,16 +61,16 @@ Two different loss functions are employed:
 #### (a) **Contrastive Loss**  
 Contrastive loss minimizes the distance between embeddings of similar signatures while maximizing the distance between different ones.  
 
-\[
+$$\[
 L = (1 - Y) \frac{1}{2} D^2 + Y \frac{1}{2} \max(0, m - D)^2
-\]
+\]$$
 
 #### (b) **Triplet Loss**  
 Triplet loss ensures that an anchor signature is closer to a genuine signature (positive) than to a forged signature (negative):  
 
-\[
+$$\[
 L = \max(0, D(A, P) - D(A, N) + \alpha)
-\]
+\]$$
 
 ### 4. Training Strategy
 Train using both **Contrastive Loss** and **Triplet Loss**  
