@@ -30,3 +30,57 @@ The dataset is **split into training, validation, and test sets**.
 **Intra-class variations**: Genuine signatures may vary slightly based on stroke pressure, pen type, and signature style.  
 **Inter-class similarities**: Some forgeries can be very close to genuine signatures.  
 **Limited labeled data**: Few examples per person, making it suitable for **Few-Shot Learning**.
+
+## Methodology
+A **Siamese Neural Network (SNN)** is employed to compare pairs of signatures and determine whether they belong to the same person (**genuine**) or not (**forged**). The core methodology involves:  
+
+### 1. Data Preprocessing
+**Image Resizing & Normalization**  
+**Data Augmentation** (Rotation, Translation, Shearing, Elastic Distortion)  
+**Pairwise Data Generation**  
+  - **Positive Pairs**: (Genuine, Genuine)  
+  - **Negative Pairs**: (Genuine, Forged)  
+**Splitting the Dataset** into Train, Validation, and Test sets  
+
+### 2. Siamese Network Architecture
+A **Siamese Network** consists of two identical convolutional branches sharing the same weights. The output embeddings from both branches are compared using a **distance metric**.  
+
+#### **Network Structure**
+**Backbone CNN**:  
+  - Convolutional layers for feature extraction  
+  - Batch Normalization & ReLU activation  
+  - Fully connected layers for embeddings  
+**Distance Calculation**:  
+  - Euclidean or cosine distance between feature embeddings  
+**Output Layer**:  
+  - A binary classification head (**1: Genuine, 0: Forged**)  
+
+### 3. Loss Functions for Training
+Two different loss functions are employed:  
+
+#### (a) **Contrastive Loss**  
+Contrastive loss minimizes the distance between embeddings of similar signatures while maximizing the distance between different ones.  
+
+\[
+L = (1 - Y) \frac{1}{2} D^2 + Y \frac{1}{2} \max(0, m - D)^2
+\]
+
+#### (b) **Triplet Loss**  
+Triplet loss ensures that an anchor signature is closer to a genuine signature (positive) than to a forged signature (negative):  
+
+\[
+L = \max(0, D(A, P) - D(A, N) + \alpha)
+\]
+
+### 4. Training Strategy
+Train using both **Contrastive Loss** and **Triplet Loss**  
+Optimize with **Adam optimizer**  
+Use **early stopping** to prevent overfitting  
+
+### 5. Evaluation Metrics
+Performance is measured using:  
+
+**Accuracy**: Percentage of correctly classified pairs  
+**Precision**: Ratio of correctly identified genuine signatures out of all predicted genuine  
+**Recall**: Ratio of correctly identified genuine signatures out of actual genuine  
+**F1-Score**: Harmonic mean of precision and recall
