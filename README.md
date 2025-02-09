@@ -13,7 +13,6 @@ The dataset used for this project is available on **Kaggle - Signature Forgery D
 **Subtle differences between genuine and forged signatures**: Some forgeries closely resemble authentic signatures.  
 
 A **Siamese Neural Network** is particularly suited for this task as it learns a **similarity function** rather than explicit class labels.  
-
 ### **Project Objectives**
 Implement a **Siamese Network** to classify signatures as **genuine or forged**.  
 Train the network using **contrastive loss** and **triplet loss**.  
@@ -44,7 +43,7 @@ A **Siamese Neural Network (SNN)** is employed to compare pairs of signatures an
 
 ### 2. Siamese Network Architecture
 A **Siamese Network** consists of two identical convolutional branches sharing the same weights. The output embeddings from both branches are compared using a **distance metric**.  
-
+![image](https://github.com/user-attachments/assets/95e094f1-ecb5-4b63-8b67-21ede74a3d78)\
 #### **Network Structure**
 **Backbone CNN**:  
   - Convolutional layers for feature extraction  
@@ -79,7 +78,7 @@ Use **early stopping** to prevent overfitting
 
 ### 5. Evaluation Metrics
 Performance is measured using:  
-
+![image](https://github.com/user-attachments/assets/b66e857b-b44a-44ce-ba88-cb6efd9bd083)\
 **Accuracy**: Percentage of correctly classified pairs  
 **Precision**: Ratio of correctly identified genuine signatures out of all predicted genuine  
 **Recall**: Ratio of correctly identified genuine signatures out of actual genuine  
